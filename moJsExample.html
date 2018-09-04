@@ -1,0 +1,14 @@
+<!--mo.js 运动图形工具库-->
+<body>
+
+	<div id="js-el"></div>
+	<script src="http://cdn.jsdelivr.net/mojs/latest/mo.min.js"></script>
+	<script src="http://cdn.jsdelivr.net/mojs-player/latest/mojs-player.min.js"></script>
+	<script>
+		const burst = new mojs.Burst({ radius: { 0: 100 } });
+
+		const timeline = new mojs.Timeline({ speed: 0.5 });
+		timeline.add(burst);
+		new MojsPlayer({ add: timeline, isPlaying: true, isRepeat: true });
+	</script>
+</body>
