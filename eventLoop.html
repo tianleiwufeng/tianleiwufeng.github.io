@@ -1,0 +1,92 @@
+<head>
+	<style>
+		#nodes {
+			background: red;
+			width: 100px;
+			height: 100px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div id="nodes"></div>
+	<button id="btn">点我</button>
+	<script>
+		/*var start = +new Date();
+		var start1;
+		var num = 0;
+		// 方法 1
+		function callback() {
+			if (num === 100) {
+				start1 = +new Date();
+				callback2();
+				return;
+			};
+			document.querySelectorAll('#nodes')[0].style.marginLeft = num++;
+			requestAnimationFrame(callback)
+			console.log(+new Date() - start);
+		}
+		callback()
+
+		function callback2() {
+			if (num === 200) {
+				return;
+			};
+			document.querySelectorAll('#nodes')[0].style.marginLeft = num++;
+			setTimeout(callback2,0);
+			console.log(+new Date() - start1);
+		}*/
+		// callback1需要1600ms, callback2只需要470ms
+
+
+		/*var i =0;
+		var k = 0;
+		var t1 = setInterval(()=>{
+			i++;
+			if( i=== 100){
+				clearInterval(t1);
+			}
+			console.log('setInterval',i);
+			requestAnimationFrame(()=>{
+				k++;
+				console.log('requestAnimationFrame',k);
+			})
+		},0)*/
+		// setInterval执行了4,5次左右开始执行requestAnimationFrame，一次输出4,5个值
+
+
+		/*var btn = document.querySelectorAll('#btn')[0],
+			div = document.querySelectorAll('#nodes')[0];
+
+		btn.addEventListener('click', () => {
+			// 样式合并渲染
+			div.style.display = 'block';
+			div.style.display = 'none';
+			div.style.display = 'block';
+
+
+
+			div.style.transform = 'translateX(1000px)'
+			//console.log(div.clientWidth); 加了这一句可以打断它的优化。
+			div.style.transition = '3s'
+			div.style.transform = 'translateX(500px)'
+		})*/
+		// 在一次渲染周期内，样式会合并后再渲染。不过只要获取了当前的计算样式，可以中断这次优化。
+
+		// setTimeout是，还是隔多少秒放入队列，再等主线程执行完再执行。（而不是先放入队列，隔多少秒执行，放入队列的都是待执行的。）
+		var start = +new Date();
+		var i = 0;
+		setTimeout(function(){
+			// 5000：5001
+			// 1000: 2270
+			console.log('setTimeout',+new Date() - start);
+		},1000);
+		while(i<1000000000){
+			i++;
+		}
+		//2265
+		console.log('主线程',+new Date() - start);
+
+	</script>
+</body>
